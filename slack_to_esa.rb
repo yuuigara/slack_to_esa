@@ -27,12 +27,13 @@ results = JSON.parse(results_json)
 results['messages'].each do |result|
   messages.push(result['text'])
 end
+messages.reverse!
 
 client = Esa::Client.new(access_token: ENV['ESA_TOKEN'], current_team: ENV['ESA_TEAM'])
 params = {
   name: ENV['ESA_TITLE'],
   body_md: messages.join("\n"),
   category: "#{ENV['ESA_CATEGORY']}/#{yesterday.year}/#{yesterday.month}/#{yesterday.day}",
-  wip: 'false'
+  wip: 'true'
 }
 client.create_post(params)
